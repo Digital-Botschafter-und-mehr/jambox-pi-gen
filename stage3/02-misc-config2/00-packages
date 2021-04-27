@@ -2,3 +2,4 @@
 ntp
 ntpdate
 ntpstat
+rng-tools5
