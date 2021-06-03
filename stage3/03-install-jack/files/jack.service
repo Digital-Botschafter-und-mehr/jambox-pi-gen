@@ -1,0 +1,16 @@
+[Unit]
+Description=JACK Server
+After=sound.target
+Conflicts=jamulus-server.service jamulus-server2.service
+
+[Service]
+LimitRTPRIO=95
+LimitMEMLOCK=infinity
+Environment=JACK_NO_AUDIO_RESERVATION=1
+Environment=JACK_PROMISCUOUS_SERVER=jack
+ExecStart=/etc/jackdrc
+User=jack
+Group=jack
+
+[Install]
+WantedBy=multi-user.target

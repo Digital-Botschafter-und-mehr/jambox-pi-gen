@@ -1,6 +1,8 @@
 [Unit]
 Description=Jamulus-Server
 After=network.target
+After=graphical.target
+Conflicts=jack.service
 
 [Service]
 Type=simple
@@ -9,24 +11,28 @@ Environment=XAUTHORITY=/home/pi/.Xauthority
 #
 # Environment settings for PORT and NUMCHANNELS here are intended as defaults which can be
 # overridden by the EnvironmentFile /home/pi/.config/Jamulus/jamulus-server.conf
-# Make Enviroment changes in that file, not here.
+# Make Environment changes in that file, not here.
 #
 # Jambox runs jamulus-server with the GUI.
 # Most common jamulus-server settings are available in the GUI and should be set there.
 #
-Environment=NUMCHANNELS=10
+Environment=NUMCHANNELS=8
 Environment=PORT=22124
+Environment=XDG_RUNTIME_DIR=/var/run/jamulus-server
 EnvironmentFile=-/home/pi/.config/Jamulus/jamulus-server.conf
+RuntimeDirectory=jamulus-server
 User=pi
 NoNewPrivileges=true
 ProtectSystem=true
-Nice=-19
 IOSchedulingClass=realtime
-IOSchedulingPriority=0
+IOSchedulingPriority=1
+CPUSchedulingPolicy=fifo
+CPUSchedulingPriority=90
 
 #### See https://jamulus.io/wiki/Command-Line-Options ####
 
-ExecStart=/usr/bin/jamulus --server --multithreading --htmlstatus /tmp/jamulus-server-status.html --fastupdate --port ${PORT} --numchannels ${NUMCHANNELS} --numchannels ${NUMCHANNELS}
+ExecStart=/usr/bin/jamulus --server --multithreading --htmlstatus /tmp/jamulus-server-status.html --fastupdate --port ${PORT} --numchannels ${NUMCHANNELS} --inifile /home/pi/.config/Jamulus/Jamulusserver.ini
+ExecStartPost=-/bin/bash -c "sleep 3; wmctrl -r 'Jamulus Server' -N ${WINDOW_TITLE:-jamulus-server}"
 
 Restart=on-failure
 RestartSec=60
