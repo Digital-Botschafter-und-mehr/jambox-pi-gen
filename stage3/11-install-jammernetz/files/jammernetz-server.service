@@ -1,0 +1,40 @@
+[Unit]
+Description=jammernetz-server
+After=network.target
+After=graphical.target
+#Conflicts=jack.service
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+#
+# Environment settings here are intended as defaults which can be
+# overridden by the EnvironmentFile /home/pi/JammerNetz/jammernetz-server.conf
+# Make Environment changes in that file, not here.
+#
+Environment=KEY=/home/pi/JammerNetz/zeros.bin
+Environment=PORT=7777
+Environment=BUFFER=4
+Environment=WAIT=6
+Environment=PREFILL=4
+Environment=WINDOW_TITLE=JammerNetzServer
+Environment=XDG_RUNTIME_DIR=/var/run/jammernetz-server
+EnvironmentFile=-/home/pi/JammerNetz/jammernetz-server.conf
+RuntimeDirectory=jammernetz-server
+User=pi
+NoNewPrivileges=true
+ProtectSystem=true
+IOSchedulingClass=realtime
+IOSchedulingPriority=1
+CPUSchedulingPolicy=fifo
+CPUSchedulingPriority=90
+
+ExecStart=/usr/bin/lxterminal -t ${WINDOW_TITLE} -e '/usr/bin/JammerNetzServer --key=${KEY} --port=${PORT} --buffer=${BUFFER} --wait=${WAIT} --prefill=${PREFILL}'
+
+StandardOutput=journal
+StandardError=inherit
+SyslogIdentifier=jammernetz-server
+
+[Install]
+WantedBy=multi-user.target
