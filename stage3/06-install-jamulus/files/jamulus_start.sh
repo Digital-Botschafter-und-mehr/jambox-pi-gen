@@ -68,7 +68,11 @@ fi
 
 # start Jamulus with --nojackconnect option if aj-snapshot is controlling the connections.
 if [ -n "$JAMULUS_SERVER" ]; then
-  timeout ${JAMULUS_TIMEOUT:-120m} chrt --${JAMULUS_SCHED:-fifo} ${JAMULUS_PRIORITY:-70} jamulus $JACKARG -c $JAMULUS_SERVER
+  if [[ -n "$JAMULUS_PRIORITY" ]]; then
+    timeout ${JAMULUS_TIMEOUT:-120m} chrt --${JAMULUS_SCHED:-fifo} ${JAMULUS_PRIORITY:-70} jamulus $JACKARG -c $JAMULUS_SERVER
+  else
+    timeout ${JAMULUS_TIMEOUT:-120m} nice -n ${JAMULUS_NICEADJ:-0} jamulus $JACKARG -c $JAMULUS_SERVER
+  fi
   RESULT=$?
   # shutdown if ended due to timeout
   [[ "$RESULT" != "0" ]] && sudo shutdown now
