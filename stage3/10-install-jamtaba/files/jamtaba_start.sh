@@ -52,13 +52,16 @@ else
 fi
 JAMTABA_PID=$!
 
-sleep 2
-PACTL_SINK_MODULE=`sudo actl load-module module-jack-sink client_name=JamTaba_OUTput`
+sleep 10
+echo JAMTABA_PID: $JAMTABA_PID
+PACTL_SINK_MODULE=`sudo pactl load-module module-jack-sink client_name=JamTaba_OUTput`
+echo PACTL_SINK_MODULE: $PACTL_SINK_MODULE
 PACTL_SOURCE_MODULE=`sudo pactl load-module module-jack-source client_name=JamTaba_INput`
+echo PACTL_SOURCE_MODULE: $PACTL_SOURCE_MODULE
 
 wait $JAMTABA_PID
-pactl unload-module $PACTL_SINK_MODULE
-pactl unload-module $PACTL_SOURCE_MODULE
+sudo pactl unload-module $PACTL_SINK_MODULE
+sudo pactl unload-module $PACTL_SOURCE_MODULE
 
 sudo systemctl unset-environment JACK_APP
 exit 0
