@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=JammerNetz Server Start
+Type=Application
+Comment=Online Jamming
+Categories=AudioVideo;Audio
+Path=/home/pi
+Exec=sudo systemctl start jammernetz-server
+Terminal=true
+Icon=/usr/share/icons/music.png
+GenericName=JammerNetz Server
+

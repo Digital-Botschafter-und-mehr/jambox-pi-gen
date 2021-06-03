@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=JammerNetz Start
+Type=Application
+Comment=Online Jamming
+Categories=AudioVideo;Audio
+Path=/home/pi
+Exec=/usr/local/bin/jammernetz_start.sh
+Terminal=true
+Icon=/usr/share/icons/music_green.png
+GenericName=JammerNetzClient
