@@ -25,13 +25,17 @@
 hdmi_force_hotplug=1
 
 # set HDMI mode to 16 (1024x768) for tablet compatibility
-# change hdmi_mode to 35 (1280x1024) or 85 (1280x720) for larger area
+# change hdmi_mode to 35 (1280x1024) or 82 (1920x1080) or 85 (1280x720) for larger area
 # see https://www.raspberrypi.org/documentation/configuration/config-txt/video.md
 hdmi_group=2
 hdmi_mode=16
 
+[none]
+hdmi_mode=85
+[all]
+
 [pi400]
-hdmi_mode=35
+hdmi_mode=82
 [all]
 
 # uncomment to force a HDMI mode rather than DVI. This can make audio work in
@@ -62,17 +66,15 @@ hdmi_mode=35
 # Disable built-in audio (loads snd_bcm2835 if =on).  It's useless for jamming.
 dtparam=audio=off
 
-[pi400]
 # Enable DRM VC4 V3D driver on top of the dispmanx display stack
-# Required for pi400, disabled for pi4 to minimize overhead
-# It allows change of display resolution from control panel,
-# and supports 2 HDMI monitors, but introduces overhead and bugs.
-# Change filter [pi400] above to [pi4] to enable on pi4
+# Allows desktop resizing from "Display Preferences" menu
+#dtoverlay=vc4-fkms-v3d
+
+[pi400]
+# Support 2 HDMI monitors for Pi4 and Pi400.
 dtoverlay=vc4-fkms-v3d
 max_framebuffers=2
 [all]
-
-#dtoverlay=vc4-fkms-v3d
 
 # wireless interfaces add overhead that can impact jitter & xruns even if they are not in use.
 # It's best to leave wifi diabled, can't use it for jamming (too much delay & jitter)
@@ -81,10 +83,8 @@ dtoverlay=disable-wifi
 # leave bluetooth disabled unless you have a specific need for it.
 dtoverlay=disable-bt
 
-# following 2 lines are for hifiberry dacplusadcpro
-# These are enabled because this card is commonly used for jamming
-# Comment these out if you use a different HAT card
-dtoverlay=hifiberry-dacplusadcpro
-force_eeprom_read=0
-
+# Uncomment the following 2 lines if you use hifiberry dacplusadcpro
+# (this will be automatically configured on first boot if hifiberry-dacplusadcpro is detected
+#dtoverlay=hifiberry-dacplusadcpro
+#force_eeprom_read=0
 
