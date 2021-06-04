@@ -1,8 +1,16 @@
 # Jambox: Jamming with Raspberry Pi
-Release 1.3.1
+Release 1.4.0b1
 
 ## Changes from v1.3.0:
-- disabled jack softmode to avoid bug, lowered default NPERIODS
+- **New Jamming App: JammerNetz**
+- **Bug fixes, stability and performance improvements**
+    - Reduced default NPERIODS for lower delay
+    - Updated Jamulus to version 3.8.0
+- **Added QasMixer to desktop as an alternative for interface settings**
+    - If QasMixer has card device controls open, in some cases this can prevent jack from starting when launching a jamming app.  If this happens, close QasMixer (File -> Quit, or right-click -> "Close QasMixer"on toolbar QasMixer "speaker" icon.
+- **Supports many Focusrite Scarlett audio interfaces including gen3**
+    - Pi4 required for most Scarlett interfaces.
+    - For some Scarlett interfaces, it may be necessary to boot Pi with interface off, then power on interface.
 
 ## Changes from v1.2.0:
 - **New Jamming Apps: JamTaba, QJackTrip**
@@ -24,10 +32,9 @@ If you don't want to read the "Quickstart" section, scroll to the bottom to read
 ### Get Wired:
 - **Raspberry Pi** Jambox has been tested primarily with Pi4B, but has also been verified to work on Pi3B.
 - **Ethernet cable** between Raspberry Pi and your router (can't use wireless for jamming, too much jitter).
-- **Headphones** to Headphone Amplifier (Rockville HPA-4 recommended) or headphone out of audio interface.
-- **Headphone Amp power supply**
+- **Headphones** to headphone out of audio interface, or to Headphone Amplifier (Rockville HPA-4 recommended).
 - **Raspberry Pi power supply** to USB-C port on Raspberry Pi 4, or micro USB port on Raspberry Pi 3B
-- **USB Audio Interface** to a USB port on Raspberry Pi
+- **USB Audio Interface** to a USB port on Raspberry Pi, or audio HAT (i.e. HiFiBerry DAC+ ADC Pro)
     - Behringer UM2 is a good choice if you are buying an interface only for jamming.
     - verified to work with Behringer UCA222
     - verified to work with Focusrite 2i2.
@@ -99,6 +106,13 @@ If you don't want to read the "Quickstart" section, scroll to the bottom to read
     - GUI wrapper for JackTrip - see Section 3, "Using QJackTrip": [https://www.psi-borg.org/other-dev.html](https://www.psi-borg.org/other-dev.html)
     - qjacktrip can also be used from command line, with same arguments as JackTrip.
 
+### JammerNetz
++ **JammerNetz Features**
+    - Client/Server system
+    - No Compression, so high audio quality, and good internet connection required.
+    - Encrypted connection requires key - default key file is /home/pi/JammerNetz/zeros.bin
+  **JammerNetz GitHub page:** [https://github.com/christofmuc/JammerNetz](https://github.com/christofmuc/JammerNetz)
+
 ### Play!
 - **Make sure that "Direct Monitor" on your USB Audio Interface is "off" (pushbutton out for Behringer UM2).**
 - For Jamulus, **listen and play to the mix coming from the server.**  Your brain will quickly adapt to any delay, up to a point.
@@ -114,7 +128,7 @@ If you don't want to read the "Quickstart" section, scroll to the bottom to read
 + **Getting & Giving Help**
     - Questions: Start a Discussion or answer a question on github: [https://github.com/kdoren/jambox-pi-gen/discussions](https://github.com/kdoren/jambox-pi-gen/discussions)
     - Bugs/Problems: Open an issue on GitHub: [https://github.com/kdoren/jambox-pi-gen/issues](https://github.com/kdoren/jambox-pi-gen/issues)
-+ **Updating Jammming Apps (Jamulus - SonoBus - QJacktrip - JamTaba)**
++ **Updating Jammming Apps (Jamulus - SonoBus - QJacktrip - JamTaba - JammerNetz)**
     - Jamming apps are installed as apt packages from repo.jambox-project.com, so can be easily updated.
     - To update, double-click the "Update Apps" desktop icon.
 + **Updating Jambox**
@@ -124,14 +138,15 @@ If you don't want to read the "Quickstart" section, scroll to the bottom to read
 + **Customizable Settings**
     - See file README.md on github: [https://github.com/kdoren/jambox-pi-gen](https://github.com/kdoren/jambox-pi-gen)
 + **Running a Jamulus Server**
-    - Jamulus server can run on Raspberry Pi.  It's best run on its own separate box.  Running on the same Raspberry Pi that runs a Jamulus Client will increase jitter.
+    - Jamulus server can run on Raspberry Pi.  It needs to run on a different Raspberry Pi than Jamulus client.  Starting jamulus-server on jambox will kill jack audio used by client; this is by design, because they will both perform poorly if run at the same time.  If you really want to run them together, comment out the "Conflict=" line in the jack and jamulus-server systemd service files.
     - Your internet connection needs enough upstream bandwidth to send streams to multiple clients.  DSL and Cable internet typically don't have very much.
     - If you run a private server, your router will require port forwarding to be set up.
     - Most customizable settings can be controlled from the Jamulus Server GUI, and are persistent.
-    - The NUMCHANNELS (default 10) and PORT (default 22124) settings are set in the file /home/pi/.config/Jamulus/jamulus-server.conf
+    - The NUMCHANNELS (default 8) and PORT (default 22124) settings are set in the file /home/pi/.config/Jamulus/jamulus-server.conf
     - To start: Double-click the "Jamulus Server Start" desktop icon, or from command line:  "sudo systemctl start jamulus-server"
     - To auto-start jamulus-server at boot time:  "sudo systemctl enable jamulus-server"
     - If you want to enable session recording (experimental on Raspberry Pi), a USB3 SSD is recommended.
+    - It's not recommended to run 2 Jamulus servers at same time on Raspberry Pi. If you really want to try it anyway, there is a second systemd service "jamulus-server2".
 + **Patch Changes**
     - Please see the topic "How do I change patches" on GitHub: [https://github.com/kdoren/jambox-pi-gen/discussions](https://github.com/kdoren/jambox-pi-gen/discussions)
 

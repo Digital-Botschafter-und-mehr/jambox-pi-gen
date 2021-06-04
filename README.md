@@ -2,7 +2,7 @@
 
 **A Raspberry Pi micro-SD card image for online jamming.  
 Pre-built image file is available under "Releases" to download and burn with balenaEtcher  
-Runs Jamulus (client-server), SonoBus (peer-to-peer), JamTaba (NINJAM) or QJackTrip on Raspberry Pi.  
+Runs Jamulus (client-server), SonoBus (peer-to-peer), JamTaba (NINJAM), QJackTrip or JammerNetz on Raspberry Pi.  
 Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
 
  * Makes it easy for non-technical musicians to play together online, with a high-quality, high-performnace, low-cost system.
@@ -20,6 +20,7 @@ Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
  * SonoBus for peer-to-peer jamming.
  * JamTaba for long-distance jamming using NINJAM servers.
  * QJackTrip for multi-machine network jamming.
+ * JammerNetz for high-quality client-server jamming.
  * Jamming apps can be updated via desktop "Update Apps" button.
  * HDMI monitor can be used if desired.
 
@@ -50,7 +51,8 @@ Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
     * "Jamulus Start" to launch Jamulus.  
     * "SonoBus Start" to launch SonoBus.  
     * "JamTaba Start" to launch JamTaba.  
-    * "QJackTrip Start" to launch QJackTrip.  
+    * "QJackTrip Start" to launch QJackTrip.
+    * "JammerNetz Start" to launch JammerNetz Client.
  8. Double-click on desktop icon "Off Switch" to shut down Raspberry Pi.
 
 ---
@@ -64,11 +66,11 @@ Raspberry Pi + Audio Interface.  Can be attached to a board with velcro and pre-
 |$ 35|Raspberry Pi 4-2GB|https://vilros.com/products/raspberry-pi-4-2gb-ram|
 |14|Vilros Self Cooling Heavy Duty Case|https://vilros.com/products/vilros-raspberry-pi-4-compatible-self-cooling-heavy-duty-aluminum-case|
 |11|Vilros Power Supply with Switch|https://vilros.com/products/vilros-usb-c-5v-3a-power-supply-with-switch-designed-for-pi-4|
-|7|SanDisk Ultra 16GB micro SD card|https://www.amazon.com/gp/product/9966573445|
+|8|SanDisk Ultra 16GB micro SD card|https://www.amazon.com/gp/product/9966573445|
 |45|Behringer UM2 USB Audio Interface|https://www.americanmusical.com/behringer-u-phoria-um2-usb-audio-interface/p/BEH-UM2|
 |15|Pyle PDMIC78 Microphone|https://www.amazon.com/gp/product/B005BSOVRY|
-|8|XLR Microphone Cable, 10 ft|https://www.amazon.com/gp/product/B07D5CPNWY|
-|22|Microphone Stand w/clip|https://www.amazon.com/gp/product/B00OZ9C9LK|
+|6|XLR Microphone Cable, 10 ft|https://www.amazon.com/gp/product/B07D5CPNWY|
+|20|Microphone Stand w/clip|https://www.amazon.com/gp/product/B00OZ9C9LK|
 |?|Over-ear Headphones|Use decent ones (likely $40 or more)|
 
 ---
@@ -89,18 +91,20 @@ Raspberry Pi + Audio Interface.  Can be attached to a board with velcro and pre-
 | JAMULUS_SERVER | *DNS name or IP of Jamulus server* | | /home/pi/.config/Jamulus/jamulus_start.conf |
 | JAMULUS_TIMEOUT | *shutdown timer if auto-connecting* | 120m | /home/pi/.config/Jamulus/jamulus_start.conf |
 | AJ_SNAPSHOT | *filename of alsa-jack patch configuration* | ajs-jamulus-stereo.xml | /home/pi/.config/Jamulus/jamulus_start.conf |
-| MASTER_LEVEL | *master output level for USB interface* | 80% | /home/pi/.config/Jamulus/jamulus_start.conf |
-| CAPTURE_LEVEL | *capture level for USB interface* | 80% | /home/pi/.config/Jamulus/jamulus_start.conf |
+| MASTER_LEVEL | *master output level for audio interface* | 80% | /home/pi/.config/Jamulus/jamulus_start.conf |
+| CAPTURE_LEVEL | *capture level for audio interface* | 80% | /home/pi/.config/Jamulus/jamulus_start.conf |
 | **SonoBus Settings** ||||
 | SONOBUS_AUTOSTART | *set to 1 to launch on boot* | 0 | /home/pi/.config/sonobus_start.conf |
 | AJ_SNAPSHOT | *filename of alsa-jack patch configuration* | ajs-sonobus-stereo.xml | /home/pi/.config/sonobus_start.conf |
-| MASTER_LEVEL | *master output level for USB interface* | 80% | /home/pi/.config/sonobus_start.conf |
-| CAPTURE_LEVEL | *capture level for USB interface* | 80% | /home/pi/.config/sonobus_start.conf |
+| MASTER_LEVEL | *master output level for audio interface* | 80% | /home/pi/.config/sonobus_start.conf |
+| CAPTURE_LEVEL | *capture level for audio interface* | 80% | /home/pi/.config/sonobus_start.conf |
 | **Jack Settings** ||||
-| DEVICE | *alsa device ID of USB interface* | last capture device | /etc/jackdrc.conf |
+| DEVICE | *alsa device ID of audio interface* | last capture device | /etc/jackdrc.conf |
 | PERIOD | *Jack Audio samples per period* | 64 [pi4] or 128 [pi3]| /etc/jackdrc.conf |
 | NPERIODS | *Jack Audio number of periods per buffer* | 8 [pi4] or 4 [pi3]| /etc/jackdrc.conf |
 | **Jamulus Server Settings** | *see file* || /home/pi/.config/Jamulus/jamulus-server.conf |
+| **JammerNetz Client Settings** | *see file* || /home/pi/JammerNetz/jammernetz_start.conf |
+| **JammerNetz Server Settings** | *see file* || /home/pi/JammerNetz/jammernetz-server.conf |
 
 ---
 ### Web Browser access to Raspberry Pi Desktop - How it works
@@ -114,6 +118,7 @@ Raspberry Pi + Audio Interface.  Can be attached to a board with velcro and pre-
  5. If only a single device is registered for a local network (source IP), NODE_ID doesn't matter.  From web browser on same local network (same source IP), urlrelay.com/go will redirect to Raspberry Pi.
  6. If >1 device exists on same local network, NODE_ID of each device should be different, then access via urlrelay.com/go?id=<NODE_ID>
  7. Recommended practice is to assign a different id to each micro SD card after flashing (i.e. NODE_ID=11), and place a label on each box with full URL "urlrelay.com/go?id=11"
+ 8. NODE_ID can be set after flashing (booting not required). In boot: partition, edit file /payload/etc/urlrelay/urlrelay.conf
  8. urlrelay.com deletes stale registrations after a set time (currently 30 days)
 
 ##### noVNC
