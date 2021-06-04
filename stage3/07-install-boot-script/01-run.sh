@@ -31,6 +31,7 @@ cp ${ROOTFS_DIR}/etc/timezone ${ROOTFS_DIR}/boot/payload/etc/
 cp files/unattended ${ROOTFS_DIR}/boot/
 # cp files/one-time-script.conf ${ROOTFS_DIR}/boot/
 
+# hook in the unattended config script
 sed -i 's|init=.*$|init=/bin/bash -c "mount -t proc proc /proc; mount -t sysfs sys /sys; mount /boot; source /boot/unattended"|' ${ROOTFS_DIR}/boot/cmdline.txt
 
 on_chroot << EOF
