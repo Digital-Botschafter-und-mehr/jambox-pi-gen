@@ -7,3 +7,4 @@ gir1.2-gst-plugins-base-0.10
 network-manager-gnome blueman vim lxplug-volume
 retext
 iotop
+wmctrl
