@@ -2,7 +2,7 @@
 
 **A Raspberry Pi micro-SD card image for online jamming.  
 Pre-built image file is available under "Releases" to download and burn with balenaEtcher  
-Runs Jamulus (client-server), SonoBus (peer-to-peer), JamTaba (NINJAM), QJackTrip or JammerNetz on Raspberry Pi.  
+Runs Jamulus (client-server), SonoBus (peer-to-peer), JamTaba (NINJAM), QJackTrip or JammerNetz (client-server) on Raspberry Pi.  
 Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
 
  * Makes it easy for non-technical musicians to play together online, with a high-quality, high-performnace, low-cost system.
@@ -59,7 +59,7 @@ Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
 ### Simple hardware platform
 Raspberry Pi + Audio Interface.  Can be attached to a board with velcro and pre-wired.
 
-**Suggested Bill of Materials**, prices in USD as of Mar 2, 2021:
+**Suggested Bill of Materials**, prices in USD as of Jun 3, 2021:
 
 |Price (USD)|Item|URL|
 |-----:|--|--|
@@ -101,7 +101,7 @@ Raspberry Pi + Audio Interface.  Can be attached to a board with velcro and pre-
 | **Jack Settings** ||||
 | DEVICE | *alsa device ID of audio interface* | last capture device | /etc/jackdrc.conf |
 | PERIOD | *Jack Audio samples per period* | 64 [pi4] or 128 [pi3]| /etc/jackdrc.conf |
-| NPERIODS | *Jack Audio number of periods per buffer* | 8 [pi4] or 4 [pi3]| /etc/jackdrc.conf |
+| NPERIODS | *Jack Audio number of periods per buffer* | 3 [pi4] or 3 [pi3]| /etc/jackdrc.conf |
 | **Jamulus Server Settings** | *see file* || /home/pi/.config/Jamulus/jamulus-server.conf |
 | **JammerNetz Client Settings** | *see file* || /home/pi/JammerNetz/jammernetz_start.conf |
 | **JammerNetz Server Settings** | *see file* || /home/pi/JammerNetz/jammernetz-server.conf |
