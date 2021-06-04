@@ -27,8 +27,7 @@ cp files/README.md ${ROOTFS_DIR}/home/${FIRST_USER_NAME}/
 cp files/jambox_update.sh ${ROOTFS_DIR}/usr/local/bin/
 chmod +x ${ROOTFS_DIR}/usr/local/bin/jambox_update.sh
 
-# avoid:  warning: "libEGL warning: DRI2: failed to authenticate" 
-# see:  https://raspberrypi.stackexchange.com/questions/61078/qt-applications-dont-work-due-to-libegl
-on_chroot << EOF
-        sudo ln -s /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2 /usr/lib/arm-linux-gnueabihf/libGLESv2.so
-EOF
+# Copy qasmixer default settings
+mkdir -p ${ROOTFS_DIR}/home/${FIRST_USER_NAME}/.config/qastools
+cp files/qasmixer.conf ${ROOTFS_DIR}/home/${FIRST_USER_NAME}/.config/qastools/
+
