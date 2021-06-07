@@ -26,11 +26,17 @@ Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
  * HDMI monitor can be used if desired.
 
 ---
-<img src="https://jambox-project.s3-us-west-2.amazonaws.com/resources/jambox_screen1-shadow.png" width="871" />
+<img src="https://jambox-project.s3-us-west-2.amazonaws.com/resources/jambox14_desktop-shadow.png" width="871" />
 
-<img src="https://jambox-project.s3-us-west-2.amazonaws.com/resources/jambox_sonobus1-shadow.png" width="871" />
+<img src="https://jambox-project.s3-us-west-2.amazonaws.com/resources/jambox14_jamulus-shadow.png" width="871" />
+
+<img src="https://jambox-project.s3-us-west-2.amazonaws.com/resources/jambox14_sonobus-shadow.png" width="871" />
 
 <img src="https://jambox-project.s3-us-west-2.amazonaws.com/resources/jambox_jamtaba2-shadow.png" width="871" />
+
+<img src="https://jambox-project.s3-us-west-2.amazonaws.com/resources/jambox14_jammernetz-shadow.png" width="871" />
+
+<img src="https://jambox-project.s3-us-west-2.amazonaws.com/resources/jambox14_hpsjam-shadow.png" width="871" />
 
 ---
 ### Easy to Setup
@@ -121,7 +127,7 @@ Raspberry Pi + Audio Interface.  Can be attached to a board with velcro and pre-
  4. urlrelay.com uses NODE_ID (default: "1") as secondary key
  5. If only a single device is registered for a local network (source IP), NODE_ID doesn't matter.  From web browser on same local network (same source IP), urlrelay.com/go will redirect to Raspberry Pi.
  6. If >1 device exists on same local network, NODE_ID of each device should be different, then access via urlrelay.com/go?id=<NODE_ID>
- 7. Recommended practice is to assign a different id to each micro SD card after flashing (i.e. NODE_ID=11), and place a label on each box with full URL "urlrelay.com/go?id=11"
+ 7. Recommended practice is to assign a different id to each micro SD card after flashing (in boot: /payload/etc/urlrelay/urlrelay.conf, i.e. NODE_ID=11), and place a label on each box with full URL "urlrelay.com/go?id=11"
  8. NODE_ID can be set after flashing (booting not required). In boot: partition, edit file /payload/etc/urlrelay/urlrelay.conf
  8. urlrelay.com deletes stale registrations after a set time (currently 30 days)
 
