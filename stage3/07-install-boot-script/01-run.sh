@@ -5,6 +5,7 @@ chmod +x ${ROOTFS_DIR}/usr/local/bin/urlrelay.sh
 
 mkdir -p ${ROOTFS_DIR}/etc/urlrelay
 cp files/urlrelay.conf ${ROOTFS_DIR}/etc/urlrelay/
+cp files/jambox_version ${ROOTFS_DIR}/etc/
 
 # install urlrelay service file
 install -m 644 files/urlrelay.service ${ROOTFS_DIR}/lib/systemd/system

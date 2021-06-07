@@ -43,6 +43,13 @@ MY_INTF=`echo "$IP_ROUTE" | sed -n 's/.*dev \([a-zA-Z0-9:-]\+\).*/\1/p'`
 # lookup the MAC address
 MACADDR=`cat /sys/class/net/$MY_INTF/address`
 
+if [ -f /etc/jambox_version ]; then
+  read -r JAMBOX_VERSION < /etc/jambox_version
+  CLIENT="Jambox/${JAMBOX_VERSION}"
+else
+  CLIENT="Jambox"
+fi
+
 if [ -f /etc/urlrelay/urlrelay.conf ]; then
   source /etc/urlrelay/urlrelay.conf
 fi
@@ -58,11 +65,13 @@ do
   if [[ "$PYTHON_VERSION" =~ ^Python.2.*$ ]]; then
     # python2:
     ENC_URL=$(python -c "import urllib, sys; print urllib.quote(sys.argv[1])" "$URL")
-  else
+    ENC_CLIENT=$(python -c "import urllib, sys; print urllib.quote(sys.argv[1])" "$CLIENT")
+else
     # python3
     ENC_URL=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))" "$URL")
+    ENC_CLIENT=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))" "$CLIENT")
   fi
-  curl -s "https://urlrelay.com/set?id=${NODE_ID}&url=${ENC_URL}&requireId=${REQUIRE_ID}&macaddr=${MACADDR}"
+  curl -s "https://urlrelay.com/set?id=${NODE_ID}&url=${ENC_URL}&requireId=${REQUIRE_ID}&macaddr=${MACADDR}&client=${ENC_CLIENT}"
   # re-register once per day
   sleep 1d
 done
