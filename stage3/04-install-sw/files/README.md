@@ -1,14 +1,14 @@
 # Jambox: Jamming with Raspberry Pi
-Release 1.4.0b1
+Release 1.4.0-b.2
 
 ## Changes from v1.3.0:
-- **New Jamming App: JammerNetz**
+- **New Jamming Apps: JammerNetz, HpsJam**
 - **Bug fixes, stability and performance improvements**
     - Reduced default NPERIODS for lower delay
     - Updated Jamulus to version 3.8.0
 - **Added QasMixer to desktop as an alternative for interface settings**
     - If QasMixer has card device controls open, in some cases this can prevent jack from starting when launching a jamming app.  If this happens, close QasMixer (File -> Quit, or right-click -> "Close QasMixer"on toolbar QasMixer "speaker" icon.
-- **Supports many Focusrite Scarlett audio interfaces including gen3**
+- **Supports many Focusrite Scarlett audio interfaces including gen3 [Experimental]**
     - Pi4 required for most Scarlett interfaces.
     - For some Scarlett interfaces, it may be necessary to boot Pi with interface off, then power on interface.
 
@@ -110,8 +110,19 @@ If you don't want to read the "Quickstart" section, scroll to the bottom to read
 + **JammerNetz Features**
     - Client/Server system
     - No Compression, so high audio quality, and good internet connection required.
+    - Can send multiple channels per client to the server
+    - Built-in instrument tuner for each channel
     - Encrypted connection requires key - default key file is /home/pi/JammerNetz/zeros.bin
   **JammerNetz GitHub page:** [https://github.com/christofmuc/JammerNetz](https://github.com/christofmuc/JammerNetz)
+
+### HpsJam
++ **HpsJam Features**
+    - Client/Server system
+    - No Compression, so high audio quality, and good internet connection required.
+    - Additional protection against jitter by redundancy in packet transmission
+    - Local audio effects: highpass, lowpass, bandpass, delay
+    - built in HTTP server for streaming uncompressed audio in WAV-file format to disk or other programs
+  **HpsJam GitHub page:** [https://github.com/hselasky/hpsjam](https://github.com/hselasky/hpsjam)
 
 ### Play!
 - **Make sure that "Direct Monitor" on your USB Audio Interface is "off" (pushbutton out for Behringer UM2).**

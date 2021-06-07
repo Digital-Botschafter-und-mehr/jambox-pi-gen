@@ -16,23 +16,31 @@ fi
 if [ -f ~/.config/Jamulus/jamulus_start.conf ]; then
   source ~/.config/Jamulus/jamulus_start.conf
   if [[ "$JAMULUS_AUTOSTART" == '1' ]]; then
-   jamulus_start.sh
-   exit 0
+    jamulus_start.sh
+    exit 0
   fi
 fi
 
 if [ -f ~/.config/sonobus_start.conf ]; then
   source ~/.config/sonobus_start.conf
   if [[ "$SONOBUS_AUTOSTART" == '1' ]]; then
-   sonobus_start.sh
-   exit 0
+    sonobus_start.sh
+    exit 0
   fi
 fi
 
 if [ -f ~/.config/JammerNetz/jammernetz_start.conf ]; then
   source ~/.config/JammerNetz/jammernetz_start.conf
   if [[ "$JAMMERNETZ_AUTOSTART" == '1' ]]; then
-   jammernetz_start.sh
-   exit 0
+    jammernetz_start.sh
+    exit 0
+  fi
+fi
+
+if [ -f ~/.config/hpsjam_start.conf ]; then
+  source ~/.config/hpsjam_start.conf
+  if [[ "$HPSJAM_AUTOSTART" == '1' ]]; then
+    hpsjam_start.sh
+    exit 0
   fi
 fi

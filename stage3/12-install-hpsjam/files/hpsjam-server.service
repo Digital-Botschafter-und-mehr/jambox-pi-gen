@@ -1,0 +1,43 @@
+[Unit]
+Description=hpsjam-server
+After=network.target
+After=graphical.target
+Conflicts=jamulus-server.service jamulus-server2.service
+#Conflicts=jack.service
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+#
+# Environment settings here are intended as defaults which can be
+# overridden by the EnvironmentFile /home/pi/.config/hpsjam-server.conf
+# Make Environment changes in that file, not here.
+#
+Environment=PORT=22124
+Environment=PEERS=8
+Environment=HTTPD=127.0.0.1:8080
+Environment=HTTPD_CONNS=1
+Environment=NCPU=4
+Environment=WINDOW_TITLE=hpsjam-server
+Environment=WELCOME_MSG_FILE=/dev/null
+Environment=XDG_RUNTIME_DIR=/var/run/hpsjam-server
+EnvironmentFile=-/home/pi/.config/hpsjam-server.conf
+
+RuntimeDirectory=hpsjam-server
+User=pi
+NoNewPrivileges=true
+ProtectSystem=true
+IOSchedulingClass=realtime
+IOSchedulingPriority=1
+CPUSchedulingPolicy=fifo
+CPUSchedulingPriority=90
+
+ExecStart=/usr/bin/lxterminal -t ${WINDOW_TITLE} -e '/usr/bin/HpsJam --server --port $PORT --peers $PEERS --httpd $HTTPD --httpd-conns $HTTPD_CONNS --ncpu $NCPU --welcome-msg-file ${WELCOME_MSG_FILE}'
+
+StandardOutput=journal
+StandardError=inherit
+SyslogIdentifier=hpsjam-server
+
+[Install]
+WantedBy=multi-user.target

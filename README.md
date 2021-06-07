@@ -2,7 +2,7 @@
 
 **A Raspberry Pi micro-SD card image for online jamming.  
 Pre-built image file is available under "Releases" to download and burn with balenaEtcher  
-Runs Jamulus (client-server), SonoBus (peer-to-peer), JamTaba (NINJAM), QJackTrip or JammerNetz (client-server) on Raspberry Pi.  
+Runs Jamulus (client-server), SonoBus (peer-to-peer), JamTaba (NINJAM), QJackTrip, JammerNetz (client-server) or HpsJam (client-server) on Raspberry Pi.  
 Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
 
  * Makes it easy for non-technical musicians to play together online, with a high-quality, high-performnace, low-cost system.
@@ -14,13 +14,14 @@ Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
  * Wired ethernet connection required (wireless adds jitter).
  * Audio interface required (USB or HAT card).
  * Can be easily configured to automatically connect to a Jamulus server on startup, then shutdown after a time.
- * Real-time kernel (on Pi4, low-latency kernel on Pi3) and default settings for low delay.
+ * Low-latency kernel and default settings tuned for low delay.
  * Jamulus requires a Jamulus server, in same area for lowest delay. Use a public server, or host your own. 
- * Can run as a Jamulus Server.
+ * Can run as a Jamulus Server, JammerNetz Server, or HpsJam Server.
  * SonoBus for peer-to-peer jamming.
  * JamTaba for long-distance jamming using NINJAM servers.
  * QJackTrip for multi-machine network jamming.
  * JammerNetz for high-quality client-server jamming.
+ * HpsJam for high-quality client-server jamming.
  * Jamming apps can be updated via desktop "Update Apps" button.
  * HDMI monitor can be used if desired.
 
@@ -53,6 +54,7 @@ Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
     * "JamTaba Start" to launch JamTaba.  
     * "QJackTrip Start" to launch QJackTrip.
     * "JammerNetz Start" to launch JammerNetz Client.
+    * "HpsJam Start" to launch HpsJam Client
  8. Double-click on desktop icon "Off Switch" to shut down Raspberry Pi.
 
 ---
@@ -105,6 +107,8 @@ Raspberry Pi + Audio Interface.  Can be attached to a board with velcro and pre-
 | **Jamulus Server Settings** | *see file* || /home/pi/.config/Jamulus/jamulus-server.conf |
 | **JammerNetz Client Settings** | *see file* || /home/pi/JammerNetz/jammernetz_start.conf |
 | **JammerNetz Server Settings** | *see file* || /home/pi/JammerNetz/jammernetz-server.conf |
+| **HpsJam Client Settings** | *see file* || /home/pi/.config/hpsjam_start.conf |
+| **HpsJam Server Settings** | *see file* || /home/pi/.config/hpsjam-server.conf |
 
 ---
 ### Web Browser access to Raspberry Pi Desktop - How it works

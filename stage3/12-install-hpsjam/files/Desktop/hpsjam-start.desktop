@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=HpsJam Start
+Type=Application
+Comment=Online Jamming
+Categories=AudioVideo;Audio
+Path=/home/pi
+Exec=/usr/local/bin/hpsjam_start.sh
+Terminal=true
+Icon=/usr/share/icons/HpsJam.png
+GenericName=HpsJam
