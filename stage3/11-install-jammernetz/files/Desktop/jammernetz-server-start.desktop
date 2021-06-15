@@ -6,6 +6,6 @@ Categories=AudioVideo;Audio
 Path=/home/pi
 Exec=sudo systemctl start jammernetz-server
 Terminal=true
-Icon=/usr/share/icons/music.png
+Icon=/usr/share/icons/JammerNetzIcon_bw.png
 GenericName=JammerNetz Server
 

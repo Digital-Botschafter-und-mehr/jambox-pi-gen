@@ -6,5 +6,5 @@ Categories=AudioVideo;Audio
 Path=/home/pi
 Exec=/usr/local/bin/jammernetz_start.sh
 Terminal=true
-Icon=/usr/share/icons/music_green.png
+Icon=/usr/share/icons/JammerNetzIcon.png
 GenericName=JammerNetzClient
