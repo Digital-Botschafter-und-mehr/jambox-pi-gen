@@ -76,18 +76,18 @@ fi
 # start HpsJam with --nojackconnect option if aj-snapshot is controlling the connections.
 if [ -n "$HPSJAM_SERVER" ]; then
   if [[ -n "$HPSJAM_PRIORITY" ]]; then
-    timeout ${HPSJAM_TIMEOUT:-120m} chrt --${HPSJAM_SCHED:-fifo} ${HPSJAM_PRIORITY:-70} HpsJam --ncpu ${NCPU:-1} $JACKARG --connect $HPSJAM_SERVER
+    timeout ${HPSJAM_TIMEOUT:-120m} chrt --${HPSJAM_SCHED:-fifo} ${HPSJAM_PRIORITY:-70} HpsJam $JACKARG --connect $HPSJAM_SERVER
   else
-    timeout ${HPSJAM_TIMEOUT:-120m} nice -n ${HPSJAM_NICEADJ:-0} HpsJam --ncpu ${NCPU:-1} $JACKARG --connect $HPSJAM_SERVER
+    timeout ${HPSJAM_TIMEOUT:-120m} nice -n ${HPSJAM_NICEADJ:-0} HpsJam $JACKARG --connect $HPSJAM_SERVER
   fi
   RESULT=$?
   # shutdown if ended due to timeout
   [[ "$RESULT" != "0" ]] && sudo shutdown now
 else
   if [[ -n "$HPSJAM_PRIORITY" ]]; then
-    chrt --${HPSJAM_SCHED:-rr} ${HPSJAM_PRIORITY} HpsJam --ncpu ${NCPU:-1} $JACKARG
+    chrt --${HPSJAM_SCHED:-rr} ${HPSJAM_PRIORITY} HpsJam $JACKARG
   else
-    nice -n ${HPSJAM_NICEADJ:-0} HpsJam --ncpu ${NCPU:-1} $JACKARG
+    nice -n ${HPSJAM_NICEADJ:-0} HpsJam $JACKARG
   fi
 fi
 
