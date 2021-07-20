@@ -1,1 +1,1 @@
-deb http://apt.blokas.io/ rpi main
+deb [ arch=armhf ] http://apt.blokas.io/ rpi main

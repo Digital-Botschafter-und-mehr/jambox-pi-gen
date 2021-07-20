@@ -1,5 +1,8 @@
 # install 5.10 PREEMPT_RT kernel
 linux-image-5.10.35-rt39-v7l+
 
+# install 5.10 low-latency 64-bit PREEMPT kernel
+linux-image-5.10.44-v8+
+
 # install 5.10 low-latency PREEMPT kernel
-linux-image-5.10.39-ll-v7l+
+linux-image-5.10.46-v7l+

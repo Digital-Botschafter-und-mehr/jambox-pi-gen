@@ -8,7 +8,8 @@ KERN=$1
 shift
 mkdir -p ${ROOTFS_DIR}/boot/$KERN/overlays/
 cp -d ${ROOTFS_DIR}/usr/lib/linux-image-$KERN/overlays/* ${ROOTFS_DIR}/boot/$KERN/overlays/
-cp -dr ${ROOTFS_DIR}/usr/lib/linux-image-$KERN/* ${ROOTFS_DIR}/boot/$KERN/
+cp -d ${ROOTFS_DIR}/usr/lib/linux-image-$KERN/* ${ROOTFS_DIR}/boot/$KERN/
+[[ -d ${ROOTFS_DIR}/usr/lib/linux-image-$KERN/broadcom ]] && cp -d ${ROOTFS_DIR}/usr/lib/linux-image-$KERN/broadcom/* ${ROOTFS_DIR}/boot/$KERN/
 touch ${ROOTFS_DIR}/boot/$KERN/overlays/README
 mv ${ROOTFS_DIR}/boot/vmlinuz-$KERN ${ROOTFS_DIR}/boot/$KERN/
 mv ${ROOTFS_DIR}/boot/System.map-$KERN ${ROOTFS_DIR}/boot/$KERN/
@@ -22,7 +23,7 @@ cat >> ${ROOTFS_DIR}/boot/config.txt << EOF
 kernel=vmlinuz-$KERN
 # initramfs initrd.img-$KERN
 os_prefix=$KERN/
-overlay_prefix=overlays/
+overlay_prefix=overlays/$(if [[ "$KERN" =~ 'v8' ]]; then echo -e "\narm_64bit=1"; fi)
 [all]
 EOF
 shift
@@ -30,7 +31,8 @@ done
 }
 
 install_kernel_from_deb "5.10.35-rt39-v7l+" "none"
-install_kernel_from_deb "5.10.39-ll-v7l+" "all"
+install_kernel_from_deb "5.10.44-v8+" "none"
+install_kernel_from_deb "5.10.46-v7l+" all
 
 # give audio group ability to raise priority with "nice"
 sed -i "s/.*audio.*nice.*$/@audio   -  nice      -19/g" ${ROOTFS_DIR}/etc/security/limits.d/audio.conf
