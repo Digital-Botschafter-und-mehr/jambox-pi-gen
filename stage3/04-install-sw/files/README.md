@@ -1,11 +1,12 @@
 # Jambox: Jamming with Raspberry Pi
-Release 1.4.0-b.2
+Release 1.4.0-b.3
 
 ## Changes from v1.3.0:
 - **New Jamming Apps: JammerNetz, HpsJam**
 - **Bug fixes, stability and performance improvements**
     - Reduced default NPERIODS for lower delay
     - Updated Jamulus to version 3.8.0
+    - Updated SonoBus to version 1.4.6
 - **Added QasMixer to desktop as an alternative for interface settings**
     - If QasMixer has card device controls open, in some cases this can prevent jack from starting when launching a jamming app.  If this happens, close QasMixer (File -> Quit, or right-click -> "Close QasMixer"on toolbar QasMixer "speaker" icon.
 - **Supports many Focusrite Scarlett audio interfaces including gen3 [Experimental]**
