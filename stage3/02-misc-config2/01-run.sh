@@ -13,5 +13,6 @@ on_chroot << EOF
 	systemctl disable raspi-config # raspi-config is only enabling 'ondemand' governor as of 2018.08.19
 	systemctl disable systemd-timesyncd
 	systemctl enable ntp
+        systemctl disable apt-daily.timer  # to avoid XRun errors
         systemctl disable apt-daily-upgrade.timer  # to avoid XRun errors
 EOF
