@@ -1,9 +1,9 @@
 #!/bin/bash
-JACK_APP=qjacktrip
-sudo systemctl set-environment JACK_APP=qjacktrip
+JACK_APP=jacktrip
+sudo systemctl set-environment JACK_APP=jacktrip
 
-if [ -f ~/.config/qjacktrip_start.conf ]; then
-  source ~/.config/qjacktrip_start.conf
+if [ -f ~/.config/jacktrip_start.conf ]; then
+  source ~/.config/jacktrip_start.conf
 fi
 
 # Audio interface is chosen in /etc/jackdrc.conf
@@ -41,6 +41,6 @@ do
   sleep 5
 done
 
-qjacktrip
+jacktrip
 sudo systemctl unset-environment JACK_APP
 exit 0
