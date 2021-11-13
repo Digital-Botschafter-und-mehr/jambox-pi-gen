@@ -1,8 +1,8 @@
 # Setup VNC server.
 
 # install noVNC
-git clone --depth 1 --branch v1.2.0 https://github.com/novnc/noVNC.git ${ROOTFS_DIR}/usr/local/noVNC/
-git clone --depth 1 --branch v0.9.0 https://github.com/novnc/websockify.git ${ROOTFS_DIR}/usr/local/noVNC/utils/websockify
+git clone --depth 1 --branch v1.3.0-beta https://github.com/novnc/noVNC.git ${ROOTFS_DIR}/usr/local/noVNC
+git clone --depth 1 --branch v0.10.0 https://github.com/novnc/websockify.git ${ROOTFS_DIR}/usr/local/noVNC/utils/websockify
 cp ${ROOTFS_DIR}/usr/local/noVNC/vnc.html ${ROOTFS_DIR}/usr/local/noVNC/index.html
 
 # install novnc service file
