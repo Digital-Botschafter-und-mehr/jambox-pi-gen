@@ -10,6 +10,6 @@ on_chroot << EOF
 	adduser pi jack --quiet
 	adduser root jack --quiet
 	echo "JACK_PROMISCUOUS_SERVER=jack" >> /etc/environment
-	# systemctl enable jack
+	systemctl enable jack
 EOF
 
