@@ -2,17 +2,19 @@
 Release 1.5.0-b.1
 
 ## Changes from v1.4.0-b.3:
-- **jack and alsa packages are now built from current upstream sources**
 - **Added support for MIDI control of Jamulus**
+    - Behringer X-Touch Mini is plug-and-play, supports faders, mute & solo buttons with LED feedback. Pan on Layer B. Slider control of Alsa Master & Capture levels.
+    - Other MIDI controllers will require some configuation effort.
 - **Removed support for newer Focusrite Scarlett interfaces**
     - Support for this is being develeoped for newer kernels, not 5.10
     - This will need to wait for Raspberry Pi to move to newer kernel release line
+- **jack and alsa packages are now built from current upstream sources**
 - **Bug fixes and performance improvements**
     - JamTaba webcam now works
     - Updated Jamulus to version 3.8.1
     - Updated JammerNetz to version 2.2.0
-    - Updated HpsJam to version 1.0.17
-    - Updated JackTrip to version 1.4.0, replacing QJackTrip
+    - Updated HpsJam to version 1.0.20
+    - Updated JackTrip to version 1.4.0, removed QJackTrip
 
 ## Changes from v1.3.0:
 - **New Jamming Apps: JammerNetz, HpsJam**
