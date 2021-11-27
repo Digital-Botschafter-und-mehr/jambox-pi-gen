@@ -10,6 +10,14 @@ if [ -f ~/.config/jamtaba_start.conf ]; then
   [[ -n "$INIT_SIZE" ]] && sed -i "s/^size=.*/size=${INIT_SIZE}/" ~/.config/JamTaba\ 2.conf
 fi
 
+# check if a MIDI device is connected
+MIDI_DEVICE_COUNT=`amidi -l | grep hw: | wc -l`
+if [[ "$MIDI_DEVICE_COUNT" != "0" ]]; then
+  # Jack will be forced to not capture MIDI devices so they can connect to JamTaba with ALSA.  Save the current state so we can set it back after JamTaba exits.
+  JACK_MIDI_ARG_SAVE=`sudo systemctl show-environment | grep JACK_MIDI_ARG | head -n1`
+  sudo systemctl unset-environment JACK_MIDI_ARG
+fi
+
 # Audio interface is chosen in /etc/jackdrc.conf
 # source it here to determine the device to use
 if [ -f /etc/jackdrc.conf ]; then
@@ -64,4 +72,10 @@ sudo pactl unload-module $PACTL_SINK_MODULE
 sudo pactl unload-module $PACTL_SOURCE_MODULE
 
 sudo systemctl unset-environment JACK_APP
+# restore systemd version of JACK_MIDI_ARG to previous state if set
+if [[ -n "$JACK_MIDI_ARG_SAVE" ]]; then
+  eval $JACK_MIDI_ARG_SAVE
+  sudo systemctl set-environment JACK_MIDI_ARG="$JACK_MIDI_ARG"
+fi
+sudo systemctl restart jack
 exit 0
