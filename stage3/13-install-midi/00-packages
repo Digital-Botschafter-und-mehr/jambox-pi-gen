@@ -1,0 +1,13 @@
+#a2jmidid
+#midipp
+#fluidsynth
+#fluid-soundfont-gm
+##meterbridge
+##fluid-soundfont-gs
+#qsynth
+qmidiroute     # for viewing ALSA midi messages
+#rosegarden
+fonts-ubuntu   # sans fonts are required if rosegarden is installed
+##vlc
+##vlc-plugin-fluidsynth
+##vlc-plugin-jack
