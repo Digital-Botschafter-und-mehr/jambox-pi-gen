@@ -1,7 +1,7 @@
 [Unit]
 Description=Jamulus-Server2
 After=graphical.target
-#Conflicts=jack.service
+Conflicts=jack.service
 Conflicts=hpsjam-server.service
 
 [Service]
@@ -31,6 +31,7 @@ CPUSchedulingPriority=90
 
 #### See https://jamulus.io/wiki/Command-Line-Options ####
 
+ExecStartPre=-/bin/bash -c "XDG_RUNTIME_DIR=/run/user/$(id -u pi) /usr/bin/pulseaudio --kill"
 ExecStart=/usr/bin/jamulus --server --multithreading --htmlstatus /tmp/jamulus-server2-status.html --fastupdate --port ${PORT} --numchannels ${NUMCHANNELS} --inifile /home/pi/.config/Jamulus/Jamulusserver2.ini
 ExecStartPost=-/bin/bash -c "sleep 3; wmctrl -r 'Jamulus Server' -N ${WINDOW_TITLE:-jamulus-server2}"
 

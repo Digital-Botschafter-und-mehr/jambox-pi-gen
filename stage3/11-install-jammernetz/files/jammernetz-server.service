@@ -2,7 +2,7 @@
 Description=jammernetz-server
 After=network.target
 After=graphical.target
-#Conflicts=jack.service
+Conflicts=jack.service
 
 [Service]
 Type=simple
@@ -30,6 +30,7 @@ IOSchedulingPriority=1
 CPUSchedulingPolicy=fifo
 CPUSchedulingPriority=90
 
+ExecStartPre=-/bin/bash -c "XDG_RUNTIME_DIR=/run/user/$(id -u pi) /usr/bin/pulseaudio --kill"
 ExecStart=/usr/bin/lxterminal -t ${WINDOW_TITLE} -e '/usr/bin/JammerNetzServer --key=${KEY} --port=${PORT} --buffer=${BUFFER} --wait=${WAIT} --prefill=${PREFILL}'
 
 StandardOutput=journal
