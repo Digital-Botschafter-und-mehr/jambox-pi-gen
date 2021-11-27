@@ -22,7 +22,7 @@ cat >> ${ROOTFS_DIR}/boot/config.txt << EOF
 
 [$1]
 kernel=vmlinuz-$KERN
-initramfs initrd.img-$KERN
+#initramfs initrd.img-$KERN
 os_prefix=$KERN/
 overlay_prefix=overlays/$(if [[ "$KERN" =~ 'v8' ]]; then echo -e "\narm_64bit=1"; fi)
 [all]
