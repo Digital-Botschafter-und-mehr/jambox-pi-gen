@@ -12,6 +12,9 @@ cp files/Desktop/*.desktop ${ROOTFS_DIR}/usr/share/applications/
 
 echo "NoDisplay=true" >> ${ROOTFS_DIR}/usr/share/applications/jamulus.desktop
 
+cp files/midi*.py ${ROOTFS_DIR}/usr/local/bin/
+chmod +x ${ROOTFS_DIR}/usr/local/bin/midi*.py
+
 cp files/jamulus_start.sh ${ROOTFS_DIR}/usr/local/bin/
 chmod +x ${ROOTFS_DIR}/usr/local/bin/jamulus_start.sh
 
