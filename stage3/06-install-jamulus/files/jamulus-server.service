@@ -2,7 +2,8 @@
 Description=Jamulus-Server
 After=network.target
 After=graphical.target
-Conflicts=jack.service
+#Conflicts=jack.service
+Conflicts=hpsjam-server.service
 
 [Service]
 Type=simple

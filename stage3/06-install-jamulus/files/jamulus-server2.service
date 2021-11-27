@@ -1,7 +1,8 @@
 [Unit]
 Description=Jamulus-Server2
 After=graphical.target
-Conflicts=jack.service
+#Conflicts=jack.service
+Conflicts=hpsjam-server.service
 
 [Service]
 Type=simple
