@@ -6,6 +6,33 @@ if [ -f ~/.config/Jamulus/jamulus_start.conf ]; then
   source ~/.config/Jamulus/jamulus_start.conf
 fi
 
+# check if a MIDI device is connected
+MIDI_DEVICE_COUNT=`amidi -l | grep hw: | wc -l`
+if [[ "$MIDI_DEVICE_COUNT" == "0" ]]; then
+  # if no MIDI devices, don't pass any string to Jamulus even if one was configured
+  unset JAMULUS_CTRLMIDICH
+  unset JAMULUS_MIDI_SCRIPT
+else
+  # If a MIDI device is connected, check for known MIDI controllers (currently only X-Touch Mini)
+  MIDI_DEVICE=`amidi -l | grep "X-TOUCH MINI" | head -n1`
+  if [[ -n "$MIDI_DEVICE" ]]; then
+    JAMULUS_CTRLMIDICH="11;f1*8;p11*8;m19*8;s27*8"
+    JAMULUS_MIDI_SCRIPT=/usr/local/bin/midi-jamulus-xtouchmini.py
+  fi
+  # If no match, check for additional known MIDI controllers here
+  # 
+  # if still no JAMULUS_MIDI_SCRIPT set, but JAMULUS_CTRLMIDICH is set, use a default script that connects jack midi to jamulus
+  [[ -n "$JAMULUS_CTRLMIDICH" ]] && [[ -z "$JAMULUS_MIDI_SCRIPT" ]] && JAMULUS_MIDI_SCRIPT=/usr/local/bin/midi-jamulus-passthrough.py
+
+  if [[ -n "$JAMULUS_CTRLMIDICH" ]]; then
+    # we are using MIDI with jamulus.  Set a default MIDI script if none has been selected.
+    [[ -z "$JAMULUS_MIDI_SCRIPT" ]] && JAMULUS_MIDI_SCRIPT=/usr/local/bin/midi-jamulus-passthrough.py
+    # Jack will be forced to capture MIDI devices and send to jack.  Save the current state so we can set it back after Jamulus exits.
+    JACK_MIDI_ARG_SAVE=`sudo systemctl show-environment | grep JACK_MIDI_ARG | head -n1`
+    sudo systemctl set-environment JACK_MIDI_ARG="-X raw"
+  fi
+fi
+
 # Audio interface is chosen in /etc/jackdrc.conf
 # source it here to determine the device to use
 if [ -f /etc/jackdrc.conf ]; then
@@ -66,24 +93,42 @@ if [[ -f ~/.config/aj-snapshot/${AJ_SNAPSHOT:=ajs-jamulus-stereo.xml} ]]; then
   JACKARG="--nojackconnect"
 fi
 
+# Start midi script as a background process
+# This script needs to wait for Jamulus to start, then connect its midi ports and start processing
+if [[ -f "$JAMULUS_MIDI_SCRIPT" ]]; then
+  echo "starting Jamulus MIDI script $JAMULUS_MIDI_SCRIPT"
+  $JAMULUS_MIDI_SCRIPT &
+  MIDI_SCRIPT_PID=$!
+fi
+
 # start Jamulus with --nojackconnect option if aj-snapshot is controlling the connections.
+# Jamulus will create a Jack MIDI input port only if parameter $JAMULUS_CTRLMIDICH is non-empty
 if [ -n "$JAMULUS_SERVER" ]; then
   if [[ -n "$JAMULUS_PRIORITY" ]]; then
-    timeout ${JAMULUS_TIMEOUT:-120m} chrt --${JAMULUS_SCHED:-fifo} ${JAMULUS_PRIORITY:-70} jamulus $JACKARG -c $JAMULUS_SERVER
+    timeout ${JAMULUS_TIMEOUT:-120m} chrt --${JAMULUS_SCHED:-fifo} ${JAMULUS_PRIORITY:-70} jamulus $JACKARG -c $JAMULUS_SERVER --ctrlmidich "${JAMULUS_CTRLMIDICH}"
   else
-    timeout ${JAMULUS_TIMEOUT:-120m} nice -n ${JAMULUS_NICEADJ:-0} jamulus $JACKARG -c $JAMULUS_SERVER
+    timeout ${JAMULUS_TIMEOUT:-120m} nice -n ${JAMULUS_NICEADJ:-0} jamulus $JACKARG -c $JAMULUS_SERVER --ctrlmidich "${JAMULUS_CTRLMIDICH}"
   fi
   RESULT=$?
   # shutdown if ended due to timeout
   [[ "$RESULT" != "0" ]] && sudo shutdown now
 else
   if [[ -n "$JAMULUS_PRIORITY" ]]; then
-    chrt --${JAMULUS_SCHED:-rr} ${JAMULUS_PRIORITY} jamulus $JACKARG
+    nice -n ${JAMULUS_NICEADJ:-0} chrt --${JAMULUS_SCHED:-rr} ${JAMULUS_PRIORITY} jamulus $JACKARG --ctrlmidich "${JAMULUS_CTRLMIDICH}"
   else
-    nice -n ${JAMULUS_NICEADJ:-0} jamulus $JACKARG
+    nice -n ${JAMULUS_NICEADJ:-0} jamulus $JACKARG --ctrlmidich "${JAMULUS_CTRLMIDICH}"
   fi
 fi
 
 [[ -n "$AJ_SNAPSHOT_PID" ]] && kill $AJ_SNAPSHOT_PID   # kill aj-snapshot background process
+[[ -n "$MIDI_SCRIPT_PID" ]] && kill $MIDI_SCRIPT_PID   # kill midiscript background process
 sudo systemctl unset-environment JACK_APP
+# restore systemd version of JACK_MIDI_ARG to previous state if set
+if [[ -n "$JACK_MIDI_ARG_SAVE" ]]; then
+  eval $JACK_MIDI_ARG_SAVE
+  sudo systemctl set-environment JACK_MIDI_ARG="$JACK_MIDI_ARG"
+else
+  [[ -n "$JAMULUS_CTRLMIDICH" ]] && sudo systemctl unset-environment JACK_MIDI_ARG
+fi
+sudo systemctl restart jack
 exit 0
