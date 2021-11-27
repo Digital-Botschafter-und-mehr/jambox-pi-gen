@@ -2,7 +2,22 @@
 
 # Jambox: Jamming with Raspberry Pi
 ## *Jazz Night School Edition*
-Release 1.4.0-b.3
+Release 1.5.0-b.1
+
+## Changes from v1.4.0-b.3:
+- **Added support for MIDI control of Jamulus**
+    - Behringer X-Touch Mini is plug-and-play, supports faders, mute & solo buttons with LED feedback. Pan on Layer B. Slider control of Alsa Master & Capture levels.
+    - Other MIDI controllers will require some configuation effort.
+- **Removed support for newer Focusrite Scarlett interfaces**
+    - Support for this is being develeoped for newer kernels, not 5.10
+    - This will need to wait for Raspberry Pi to move to newer kernel release line
+- **jack and alsa packages are now built from current upstream sources**
+- **Bug fixes and performance improvements**
+    - JamTaba webcam now works
+    - Updated Jamulus to version 3.8.1
+    - Updated JammerNetz to version 2.2.0
+    - Updated HpsJam to version 1.0.20
+    - Updated JackTrip to version 1.4.0, removed QJackTrip
 
 ## Changes from v1.3.0:
 - **New Jamming Apps: JammerNetz, HpsJam**
@@ -114,10 +129,10 @@ If you don't want to read the "Quickstart" section, scroll to the bottom to read
     - Jamming over very long distances is possible (i.e. musicians from 4 different continents).
 + **JamTaba user guide:** [https://github.com/elieserdejesus/JamTaba/wiki/Jamtaba%27s-user-guide](https://github.com/elieserdejesus/JamTaba/wiki/Jamtaba%27s-user-guide)
 
-### QJackTrip
-+ **QJackTrip Features**
+### JackTrip
++ **JackTrip Features**
     - GUI wrapper for JackTrip - see Section 3, "Using QJackTrip": [https://www.psi-borg.org/other-dev.html](https://www.psi-borg.org/other-dev.html)
-    - qjacktrip can also be used from command line, with same arguments as JackTrip.
+    - jacktrip can also be used from command line, with same arguments as JackTrip.
 
 ### JammerNetz
 + **JammerNetz Features**
