@@ -43,4 +43,5 @@ done
 
 jacktrip
 sudo systemctl unset-environment JACK_APP
+sudo systemctl restart jack
 exit 0

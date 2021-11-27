@@ -61,4 +61,5 @@ fi
 
 [[ -n "$AJ_SNAPSHOT_PID" ]] && kill $AJ_SNAPSHOT_PID   # kill aj-snapshot background process
 sudo systemctl unset-environment JACK_APP
+sudo systemctl restart jack
 exit 0
