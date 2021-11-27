@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <PROPERTIES>
-  <VALUE name="username" val="jambox"/>
   <VALUE name="ClientSettings">
-    <Setup ServerName="127.0.0.1" Port="7777" UseLocalhost="0" CryptoFilePath="/home/pi/JammerNetz/zeros.bin">
-      <Inputs Type="JACK" Device="system">
-        <Channels>
-          <Channel Name="capture_1" Active="1" Index="0"/>
-          <Channel Name="capture_2" Active="0" Index="1"/>
+    <Setup Type="JACK" minPlayoutBuffer="7" maxPlayoutBuffer="22" useFEC="0"
+           Port="7777" UseLocalhost="0" CryptoFilePath="/home/pi/JammerNetz/zeros.bin"
+           inputLatency="2.666666746139526" outputLatency="8.0">
+      <Mixer>
+        <OutputController Volume="100.0" Target="4"/>
+        <Input0 Volume="100.0" Target="4"/>
+      </Mixer>
+      <Inputs Device="system">
+        <Channels ChannelCount="2">
+          <Channel0 ChannelName="capture_1" ChannelActive="1"/>
+          <Channel1 ChannelName="capture_2" ChannelActive="0"/>
         </Channels>
       </Inputs>
-      <Outputs Type="JACK" Device="system">
-        <Channels>
-          <Channel Name="playback_1" Active="1" Index="0"/>
-          <Channel Name="playback_2" Active="1" Index="1"/>
+      <Outputs Device="system">
+        <Channels ChannelCount="2">
+          <Channel0 ChannelName="playback_1" ChannelActive="1"/>
+          <Channel1 ChannelName="playback_2" ChannelActive="1"/>
         </Channels>
       </Outputs>
-      <BufferConfig minPlayoutBuffer="7.0" maxPlayoutBuffer="22.0" useFEC="0"/>
-      <OutputController Volume="0.0" Target="0"/>
-      <Input0 Volume="1.0" Target="4"/>
     </Setup>
   </VALUE>
 </PROPERTIES>

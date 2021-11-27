@@ -51,7 +51,7 @@ if [[ -f ~/.config/aj-snapshot/$AJ_SNAPSHOT ]]; then
 fi
 
 # start a subshell which will resize the JammerNetzClient window after it starts, to fit the jambox default desktop size
-(sleep ${WINDOW_RESIZE_DELAY:-8} >/dev/null; wmctrl -r JammerNetzClient -e ${JAMMERNETZ_WINDOW:-0,0,40,1020,650} > /dev/null) &
+(sleep ${WINDOW_RESIZE_DELAY:-8} >/dev/null; wmctrl -r JammerNetzClient -e ${JAMMERNETZ_WINDOW:-0,0,37,1020,699} > /dev/null) &
 
 if [[ -n "$JAMMERNETZ_PRIORITY" ]]; then
   chrt --${JAMMERNETZ_SCHED:-rr} ${JAMMERNETZ_PRIORITY} JammerNetzClient
