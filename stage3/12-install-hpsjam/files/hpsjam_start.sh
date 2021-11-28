@@ -63,7 +63,7 @@ do
   sleep 5
 done
 
-# Start aj-snapshot as a background process if JammerNetzClient had $AJ_SNAPSHOT set
+# Start aj-snapshot as a background process if HpsJam had $AJ_SNAPSHOT set
 # Default is unset (HpsJam makes alsa-jack connections).
 # If set, this will make the alsa/jack connections specified in snapshot file $AJ_SNAPSHOT after HpsJam starts
 if [[ -f ~/.config/aj-snapshot/$AJ_SNAPSHOT ]]; then
@@ -73,7 +73,7 @@ if [[ -f ~/.config/aj-snapshot/$AJ_SNAPSHOT ]]; then
   JACKARG="--jacknoconnect"
 fi
 
-# start HpsJam with --nojackconnect option if aj-snapshot is controlling the connections.
+# start HpsJam with --jacknoconnect option if aj-snapshot is controlling the connections.
 if [ -n "$HPSJAM_SERVER" ]; then
   if [[ -n "$HPSJAM_PRIORITY" ]]; then
     timeout ${HPSJAM_TIMEOUT:-120m} chrt --${HPSJAM_SCHED:-fifo} ${HPSJAM_PRIORITY:-70} HpsJam $JACKARG --connect $HPSJAM_SERVER
