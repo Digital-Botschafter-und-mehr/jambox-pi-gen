@@ -86,7 +86,7 @@ done
 
 # Start aj-snapshot as a background process.
 # this will make the alsa/jack connections specified in snapshot file $AJ_SNAPSHOT after Jamulus starts
-if [[ -f ~/.config/aj-snapshot/${AJ_SNAPSHOT:=ajs-jamulus-stereo.xml} ]]; then
+if [[ -f ~/.config/aj-snapshot/$AJ_SNAPSHOT ]]; then
   echo "Starting aj-snapshot daemon"
   aj-snapshot --remove --daemon ~/.config/aj-snapshot/$AJ_SNAPSHOT &
   AJ_SNAPSHOT_PID=$!
