@@ -53,6 +53,9 @@ fi
 # start a subshell which will resize the JammerNetzClient window after it starts, to fit the jambox default desktop size
 (sleep ${WINDOW_RESIZE_DELAY:-8} >/dev/null; wmctrl -r JammerNetzClient -e ${JAMMERNETZ_WINDOW:-0,0,37,1020,699} > /dev/null) &
 
+# kill pulseaudio after JammerNetz has started
+/bin/bash -c "sleep 6; XDG_RUNTIME_DIR=/run/user/$(id -u pi) /usr/bin/pulseaudio --kill" &
+
 if [[ -n "$JAMMERNETZ_PRIORITY" ]]; then
   chrt --${JAMMERNETZ_SCHED:-rr} ${JAMMERNETZ_PRIORITY} JammerNetzClient
 else
