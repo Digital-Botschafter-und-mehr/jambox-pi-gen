@@ -150,7 +150,7 @@ jamulus_midi = SceneGroup('jamulus_midi', [
         [
             # Scene initialization events go here
             # set to Layer A
-            Program('out_1', 1, 1) >> Print('Set Layer A')
+            Program('out_1', 1, 1)
         ],
     ])
 ])
