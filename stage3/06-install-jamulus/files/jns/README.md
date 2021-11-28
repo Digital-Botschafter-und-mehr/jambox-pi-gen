@@ -2,7 +2,7 @@
 
 # Jambox: Jamming with Raspberry Pi
 ## *Jazz Night School Edition*
-**Release 1.5.0-b.1**
+**Release 1.5.0-b.2**
 
 ## Changes from v1.4.0-b.2:
 - **Added support for MIDI control of Jamulus**
