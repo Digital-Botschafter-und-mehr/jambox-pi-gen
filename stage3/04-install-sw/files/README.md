@@ -1,10 +1,10 @@
 # Jambox: Jamming with Raspberry Pi
-Release 1.5.0-b.1
+**Release 1.5.0-b.1**
 
 ## Changes from v1.4.0-b.3:
 - **Added support for MIDI control of Jamulus**
     - Behringer X-Touch Mini is plug-and-play, supports faders, mute & solo buttons with LED feedback. Pan on Layer B. Slider control of Alsa Master & Capture levels.
-    - Other MIDI controllers will require some configuation effort.
+    - Other MIDI controllers will require some configuration effort.
 - **Removed support for newer Focusrite Scarlett interfaces**
     - Support for this is being develeoped for newer kernels, not 5.10
     - This will need to wait for Raspberry Pi to move to newer kernel release line
