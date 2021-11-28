@@ -2,7 +2,7 @@
 
 **A Raspberry Pi micro-SD card image for online jamming.  
 Pre-built image file is available under "Releases" to download and burn with balenaEtcher  
-Runs Jamulus (client-server), SonoBus (peer-to-peer), JamTaba (NINJAM), QJackTrip, JammerNetz (client-server) or HpsJam (client-server) on Raspberry Pi.  
+Runs Jamulus (client-server), SonoBus (peer-to-peer), JamTaba (NINJAM), JackTrip, JammerNetz (client-server) or HpsJam (client-server) on Raspberry Pi.  
 Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
 
  * Makes it easy for non-technical musicians to play together online, with a high-quality, high-performnace, low-cost system.
@@ -15,15 +15,16 @@ Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
  * Audio interface required (USB or HAT card).
  * Can be easily configured to automatically connect to a Jamulus server on startup, then shutdown after a time.
  * Low-latency kernel and default settings tuned for low delay.
- * Jamulus requires a Jamulus server, in same area for lowest delay. Use a public server, or host your own. 
+ * Jamulus requires a Jamulus server, in same area for lowest delay. Use a public server, or host your own.
  * Can run as a Jamulus Server, JammerNetz Server, or HpsJam Server.
  * SonoBus for peer-to-peer jamming.
  * JamTaba for long-distance jamming using NINJAM servers.
- * QJackTrip for multi-machine network jamming.
+ * JackTrip for multi-machine network jamming.
  * JammerNetz for high-quality client-server jamming.
  * HpsJam for high-quality client-server jamming.
  * Jamming apps can be updated via desktop "Update Apps" button.
  * HDMI monitor can be used if desired.
+ * Jamulus client can be controlled using X-Touch Mini MIDI controller (level/mute/solo/pan)
 
 ---
 <img src="https://jambox-project.s3-us-west-2.amazonaws.com/resources/jambox14_desktop-shadow.png" width="871" />
@@ -58,7 +59,7 @@ Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
     * "Jamulus Start" to launch Jamulus.  
     * "SonoBus Start" to launch SonoBus.  
     * "JamTaba Start" to launch JamTaba.  
-    * "QJackTrip Start" to launch QJackTrip.
+    * "JackTrip Start" to launch JackTrip.
     * "JammerNetz Start" to launch JammerNetz Client.
     * "HpsJam Start" to launch HpsJam Client
  8. Double-click on desktop icon "Off Switch" to shut down Raspberry Pi.
@@ -67,18 +68,18 @@ Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
 ### Simple hardware platform
 Raspberry Pi + Audio Interface.  Can be attached to a board with velcro and pre-wired.
 
-**Suggested Bill of Materials**, prices in USD as of Jun 3, 2021:
+**Suggested Bill of Materials**, prices in USD as of Nov 27, 2021:
 
 |Price (USD)|Item|URL|
 |-----:|--|--|
-|$ 35|Raspberry Pi 4-2GB|https://vilros.com/products/raspberry-pi-4-2gb-ram|
+|$ 46|Raspberry Pi 4-2GB|https://vilros.com/products/raspberry-pi-4-2gb-ram|
 |14|Vilros Self Cooling Heavy Duty Case|https://vilros.com/products/vilros-raspberry-pi-4-compatible-self-cooling-heavy-duty-aluminum-case|
 |11|Vilros Power Supply with Switch|https://vilros.com/products/vilros-usb-c-5v-3a-power-supply-with-switch-designed-for-pi-4|
 |8|SanDisk Ultra 16GB micro SD card|https://www.amazon.com/gp/product/9966573445|
 |45|Behringer UM2 USB Audio Interface|https://www.americanmusical.com/behringer-u-phoria-um2-usb-audio-interface/p/BEH-UM2|
-|15|Pyle PDMIC78 Microphone|https://www.amazon.com/gp/product/B005BSOVRY|
-|6|XLR Microphone Cable, 10 ft|https://www.amazon.com/gp/product/B07D5CPNWY|
-|20|Microphone Stand w/clip|https://www.amazon.com/gp/product/B00OZ9C9LK|
+|31|Pyle PDMIC78 Microphone|https://www.amazon.com/gp/product/B005BSOVRY|
+|13|XLR Microphone Cable, 10 ft|https://www.amazon.com/gp/product/B00JOTSP3W|
+|23|Microphone Stand w/clip|https://www.amazon.com/gp/product/B00OZ9C9LK|
 |?|Over-ear Headphones|Use decent ones (likely $40 or more)|
 
 ---
