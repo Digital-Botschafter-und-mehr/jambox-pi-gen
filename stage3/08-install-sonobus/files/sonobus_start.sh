@@ -50,9 +50,6 @@ if [[ -f ~/.config/aj-snapshot/$AJ_SNAPSHOT ]]; then
   AJ_SNAPSHOT_PID=$!
 fi
 
-# kill pulseaudio after SonoBus has started
-/bin/bash -c "sleep 6; XDG_RUNTIME_DIR=/run/user/$(id -u pi) /usr/bin/pulseaudio --kill" &
-
 if [[ -n "$SONOBUS_PRIORITY" ]]; then
   nice -n ${SONOBUS_NICEADJ:-0} chrt --${SONOBUS_SCHED:-rr} ${SONOBUS_PRIORITY} sonobus
 else

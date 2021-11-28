@@ -41,9 +41,6 @@ do
   sleep 5
 done
 
-# kill pulseaudio after jacktrip has started
-/bin/bash -c "sleep 6; XDG_RUNTIME_DIR=/run/user/$(id -u pi) /usr/bin/pulseaudio --kill" &
-
 jacktrip
 sudo systemctl unset-environment JACK_APP
 sudo systemctl restart jack
