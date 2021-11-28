@@ -101,6 +101,9 @@ if [[ -f "$JAMULUS_MIDI_SCRIPT" ]]; then
   MIDI_SCRIPT_PID=$!
 fi
 
+# kill pulseaudio after Jamulus has started
+/bin/bash -c "sleep 6; XDG_RUNTIME_DIR=/run/user/$(id -u pi) /usr/bin/pulseaudio --kill" &
+
 # start Jamulus with --nojackconnect option if aj-snapshot is controlling the connections.
 # Jamulus will create a Jack MIDI input port only if parameter $JAMULUS_CTRLMIDICH is non-empty
 if [ -n "$JAMULUS_SERVER" ]; then
