@@ -11,4 +11,7 @@ linux-image-5.10.74-llat-v8+
 linux-image-5.10.74-rt54-v7l+
 
 # install 5.10 64-bit PREEMPT_RT kernel
-linux-image-5.10.74-rt54-v8+
+# linux-image-5.10.74-rt54-v8+
+
+# install 5.10.39 low-latency PREEMPT kernel with Scarlett support
+linux-image-5.10.39-ll-v7l+

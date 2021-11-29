@@ -34,7 +34,8 @@ done
 install_kernel_from_deb "5.10.74-llat-v7l+" "all"
 install_kernel_from_deb "5.10.74-llat-v8+" "none"
 install_kernel_from_deb "5.10.74-rt54-v7l+" "none"
-install_kernel_from_deb "5.10.74-rt54-v8+" "none"
+#install_kernel_from_deb "5.10.74-rt54-v8+" "none"
+install_kernel_from_deb "5.10.39-ll-v7l+" "none"
 
 # give audio group ability to raise priority with "nice"
 sed -i "s/.*audio.*nice.*$/@audio   -  nice      -19/g" ${ROOTFS_DIR}/etc/security/limits.d/audio.conf
