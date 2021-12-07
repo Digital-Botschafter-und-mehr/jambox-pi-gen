@@ -16,8 +16,8 @@ else
   # If a MIDI device is connected, check for known MIDI controllers (currently only X-Touch Mini)
   MIDI_DEVICE=`amidi -l | grep "X-TOUCH MINI" | head -n1`
   if [[ -n "$MIDI_DEVICE" ]]; then
-    JAMULUS_CTRLMIDICH="11;f1*8;p11*8;m19*8;s27*8"
-    JAMULUS_MIDI_SCRIPT=/usr/local/bin/midi-jamulus-xtouchmini.py
+    [[ -z "$JAMULUS_CTRLMIDICH" ]] && JAMULUS_CTRLMIDICH="11;f1*16;m19*16;s35*16;p51*16"
+    [[ -z "$JAMULUS_MIDI_SCRIPT" ]] && JAMULUS_MIDI_SCRIPT=/usr/local/bin/midi-jamulus-xtouchmini-16ch.py
   fi
   # If no match, check for additional known MIDI controllers here
   # 
