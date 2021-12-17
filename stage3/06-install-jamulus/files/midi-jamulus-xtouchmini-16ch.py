@@ -32,6 +32,7 @@ import alsaaudio
 import time
 import jack
 import sys
+import re
 
 master = alsaaudio.Mixer('Master')
 capture = alsaaudio.Mixer('Capture')
@@ -58,39 +59,33 @@ ledRingTrim = 4
 # 
 # use buffered jack backend to minimize impact on audio
 # 
-# automatically connect on startup.
+# automatically connect MIDI ports on startup.
 
 # This script is lanuched in backgound before Jamulus is started
 # Need to wait a few seconds before connecting to Jamulus
 time.sleep(3)
 
-
-# jack daemon maps alsa MIDI devices to port name like "midi_capture_1".
-# In case of multiple MIDI devices, need to check which is X-TOUCH-MINI
-target_alias='X-TOUCH-MINI'
+# Jack has multiple mechanisms for sending alsa MIDI ports to Jack MIDI ports.
+# All name the jack ports differently, and we want to work with them all.
+# Mididings can use a regexp to look for a matching jack MIDI port
+#
+target_alias = '^.*X-TOUCH.MINI.*'   # regexp allowed
 client=jack.Client('mididings')
-in_devices=client.get_ports(is_midi=True, is_output=True, is_physical=True)
-out_devices=client.get_ports(is_midi=True, is_input=True, is_physical=True)
-in_target = [ d.name for d in in_devices if target_alias in d.aliases[0] ][:1]
-out_target = [ d.name for d in out_devices if target_alias in d.aliases[0] ][:1] 
-if not in_target or not out_target:
-    print('no MIDI device found matching alias ' + target_alias)
-    sys.exit(1)
 
 config(
       backend='jack',
       client_name='mididings',
       in_ports = [
-          ('in', in_target[0]),
+          ('in', target_alias ),
       ],
       out_ports = [
-          ('out_1', out_target[0]),
-          ('out_2', 'Jamulus:input midi')
+          (controllerOutPort, target_alias ),
+          (jamulusOutPort, 'Jamulus:input midi')
       ],
       start_delay = 1
 )
 
-# there are 48 "buttons" on x-touch mini, on 2 layers (LA & LB)
+# there are 48 "buttons" on x-touch mini, on 2 layers (A & B)
 # 8 x encoder push switches   Layer A:  0-7    Layer B: 24-31
 # 8 pushbuttons row 1         Layer A:  8-15   Layer B: 32-39
 # 8 pushbuttons row 2         Layer A:  16-23  Layer B: 40-47
@@ -98,7 +93,7 @@ config(
 #
 # save a toggle state for each one whether we intend to use it or not
 # encoders:     0=fader (ledRing=fan)   1=pan (ledRing=pan)
-# pushbuttons:  0=off (led off)         1=on (led on)
+# pushbuttons:  0=off   (led off)       1=on  (led on)
 #
 buttonState = [0] * 48
 
@@ -304,9 +299,9 @@ def noteOff(event):
 
     return events
 
-# Process control value changes
-# update the stored value, and send to jamulus channel based on the encoder state (fader or pan).
-# Sliders are use as alsa controls for Master & Capture, not sent to Jamulus
+# Process control value changes.
+# Update the stored value, and send to jamulus channel based on the encoder state (fader or pan).
+# Sliders are used as alsa controls for Master & Capture, not sent to Jamulus
 def controlChange(event):
     global currentLayer
     events = []
@@ -323,7 +318,7 @@ def controlChange(event):
             alsaLevel = event.value * 100 // 127
             if controlIn == 9:
                 master.setvolume(alsaLevel)
-            if controlIn == 10:
+            elif controlIn == 10:
                 capture.setvolume(alsaLevel)
 
         else:
