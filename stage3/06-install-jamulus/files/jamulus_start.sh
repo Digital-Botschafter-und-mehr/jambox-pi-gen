@@ -12,6 +12,7 @@ if [[ "$MIDI_DEVICE_COUNT" == "0" ]]; then
   # if no MIDI devices, don't pass any string to Jamulus even if one was configured
   unset JAMULUS_CTRLMIDICH
   unset JAMULUS_MIDI_SCRIPT
+  sudo systemctl unset-environment JACK_MIDI_ARG
 else
   # If a MIDI device is connected, check for known MIDI controllers (currently only X-Touch Mini)
   MIDI_DEVICE=`amidi -l | grep "X-TOUCH MINI" | head -n1`
@@ -30,6 +31,8 @@ else
     # Jack will be forced to capture MIDI devices and send to jack.  Save the current state so we can set it back after Jamulus exits.
     JACK_MIDI_ARG_SAVE=`sudo systemctl show-environment | grep JACK_MIDI_ARG | head -n1`
     sudo systemctl set-environment JACK_MIDI_ARG="-X raw"
+  else
+    sudo systemctl unset-environment JACK_MIDI_ARG
   fi
 fi
 
