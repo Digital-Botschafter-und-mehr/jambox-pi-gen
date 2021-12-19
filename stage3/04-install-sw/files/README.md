@@ -1,13 +1,19 @@
 # Jambox: Jamming with Raspberry Pi
-**Release 1.5.0-b.2**
+**Release 1.5.0**
+
+## Changes from v1.5.0-b.2:
+- **Improved support for Behringer X-Touch Mini MIDI control of Jamulus**
+    - 16 channels (8 each on layers A & B)
+    - Push on encoder to switch between channel fader and pan (LED ring shows state)
+    - update noVNC to v1.3.0, jacktrip to 1.4.2
+    - bug fixes in MIDI device handling
+- **Newer Focusrite interfaces may be usable with some configuration effort**
+    - use 5.15 kernel (installed but not activated), create modprobe conf file, patch with patchage
 
 ## Changes from v1.4.0-b.2:
 - **Added support for MIDI control of Jamulus**
     - Behringer X-Touch Mini is plug-and-play, supports faders, mute & solo buttons with LED feedback. Pan on Layer B. Slider control of Alsa Master & Capture levels.
     - Other MIDI controllers will require some configuration effort.
-- **Removed support for newer Focusrite Scarlett interfaces**
-    - Support for this is being develeoped for newer kernels, not 5.10
-    - This will need to wait for Raspberry Pi to move to newer kernel release line
 - **jack and alsa packages are now built from current upstream sources**
 - **Bug fixes and performance improvements**
     - JamTaba webcam now works
@@ -24,9 +30,6 @@
     - Updated SonoBus to version 1.4.6
 - **Added QasMixer to desktop as an alternative for interface settings**
     - If QasMixer has card device controls open, in some cases this can prevent jack from starting when launching a jamming app.  If this happens, close QasMixer (File -> Quit, or right-click -> "Close QasMixer"on toolbar QasMixer "speaker" icon.
-- **Supports many Focusrite Scarlett audio interfaces including gen3 [Experimental]**
-    - Pi4 required for most Scarlett interfaces.
-    - For some Scarlett interfaces, it may be necessary to boot Pi with interface off, then power on interface.
 
 ## Changes from v1.2.0:
 - **New Jamming Apps: JamTaba, QJackTrip**

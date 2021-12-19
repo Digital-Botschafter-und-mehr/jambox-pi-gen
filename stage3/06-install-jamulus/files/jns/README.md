@@ -2,15 +2,21 @@
 
 # Jambox: Jamming with Raspberry Pi
 ## *Jazz Night School Edition*
-**Release 1.5.0-b.2**
+*Release 1.5.0**
+
+## Changes from v1.5.0-b.2:
+- **Improved support for Behringer X-Touch Mini MIDI control of Jamulus**
+    - 16 channels (8 each on layers A & B)
+    - Push on encoder to switch between channel fader and pan (LED ring shows state)
+    - update noVNC to v1.3.0, jacktrip to 1.4.2
+    - bug fixes in MIDI device handling
+- **Newer Focusrite interfaces may be usable with some configuration effort**
+    - use 5.15 kernel (installed but not activated), create modprobe conf file, patch with patchage
 
 ## Changes from v1.4.0-b.2:
 - **Added support for MIDI control of Jamulus**
     - Behringer X-Touch Mini is plug-and-play, supports faders, mute & solo buttons with LED feedback. Pan on Layer B. Slider control of Alsa Master & Capture levels.
     - Other MIDI controllers will require some configuration effort.
-- **Removed support for newer Focusrite Scarlett interfaces**
-    - Support for this is being develeoped for newer kernels, not 5.10
-    - This will need to wait for Raspberry Pi to move to newer kernel release line
 - **jack and alsa packages are now built from current upstream sources**
 - **Bug fixes and performance improvements**
     - JamTaba webcam now works
