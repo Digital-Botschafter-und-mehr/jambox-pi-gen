@@ -1,17 +1,20 @@
 # install gnuplot for latency analysis
 gnuplot
 
+# install 5.15 32-bit low-latency PREEMPT kernel
+linux-image-5.15.10-llat-v7+
+
+# install 5.15 32-bit PREEMPT_RT kernel
+linux-image-5.15.10-rt24-v7l+
+
 # install 5.10 32-bit low-latency PREEMPT kernel
 linux-image-5.10.74-llat-v7+
 
 # install 5.10 64-bit low-latency PREEMPT kernel
-linux-image-5.10.74-llat-v8+
+#linux-image-5.10.74-llat-v8+
 
 # install 5.10 32-bit PREEMPT_RT kernel
 linux-image-5.10.74-rt54-v7l+
 
 # install 5.10 64-bit PREEMPT_RT kernel
 # linux-image-5.10.74-rt54-v8+
-
-# install 5.10.39 low-latency PREEMPT kernel with Scarlett support
-linux-image-5.10.39-ll-v7l+
