@@ -31,9 +31,9 @@ shift
 done
 }
 
-install_kernel_from_deb "5.10.74-llat-v7l+" "all"
+install_kernel_from_deb "5.10.74-llat-v7l+" "none"
 install_kernel_from_deb "5.10.74-rt54-v7l+" "none"
-install_kernel_from_deb "5.15.10-llat-v7l+" "none"
+install_kernel_from_deb "5.15.10-llat-v7l+" "all"
 install_kernel_from_deb "5.15.10-rt24-v7l+" "none"
 
 # give audio group ability to raise priority with "nice"
