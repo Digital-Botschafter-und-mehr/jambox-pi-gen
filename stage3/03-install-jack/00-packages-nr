@@ -1,4 +1,4 @@
-jackd2
+jackd2 libjack-jackd2-0
 libmxml-dev
 aj-snapshot
 jack-delay

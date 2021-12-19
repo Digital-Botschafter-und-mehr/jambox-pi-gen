@@ -1,1 +1,3 @@
 pulseaudio-module-jack
+alsa-utils
+libasound2 libasound2-data libasound2-dev libasound2-doc libasound2-plugin-smixer libatopology2
