@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<aj-snapshot>
+<alsa>
+  <client name="system">
+    <port id="0" />
+    <port id="1" />
+  </client>
+  <client name="Midi Through">
+    <port id="0" />
+  </client>
+  <client name="jack_midi" />
+  <client name="Patchage" />
+</alsa>
+<jack>
+  <client name="zalsa_in">
+    <port name="capture_1">
+      <connection port="hpsjam:input_1" />
+    </port>
+    <port name="capture_2">
+      <connection port="hpsjam:input_2" />
+    </port>
+    <port name="midi_capture_1" />
+  </client>
+  <client name="hpsjam">
+    <port name="output_1">
+      <connection port="zalsa_out:playback_1" />
+    </port>
+    <port name="output_2">
+      <connection port="zalsa_out:playback_2" />
+    </port>
+  </client>
+</jack>
+</aj-snapshot>

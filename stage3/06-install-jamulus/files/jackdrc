@@ -1,5 +1,18 @@
 #!/bin/bash
 # exec is used to 'morph' the shell interpreter process into jackd process, saving some system resources.
 [[ -f /etc/jackdrc.conf ]] && source /etc/jackdrc.conf
-JACK_COMMAND="/usr/bin/jackd -t 2000 -R -P ${JACK_PRIORITY:-90} -d alsa -d ${DEVICE:-hw:1,0} -r 48000 -p ${PERIOD:-64} -n ${NPERIODS:-3} -S ${JACK_MIDI_ARG}"
+if [[ "$ZITA" != "1" ]]; then
+  JACK_COMMAND="/usr/bin/jackd -t 2000 -R -P ${JACK_PRIORITY:-90} -d alsa -d ${DEVICE:-hw:1,0} -r 48000 -p ${PERIOD:-64} -n ${NPERIODS:-3} -S ${JACK_MIDI_ARG}"
+else
+  JACK_COMMAND="/usr/bin/jackd -t 2000 -R -P ${JACK_PRIORITY:-90} ${JACK_MIDI_ARG} -d dummy -r 48000 -p ${PERIOD:-64} -C 0 -P 0"
+  #  JACK_COMMAND="/usr/bin/jackd -t 2000 -R -P ${JACK_PRIORITY:-90} ${JACK_MIDI_ARG} -d dummy -r 48000 -p ${PERIOD:-64}"
+#  JACK_COMMAND="/usr/bin/jackd -t 2000 -R -P ${JACK_PRIORITY:-90} ${JACK_MIDI_ARG} -d dummy r 48000 -p ${PERIOD:-64} -C 0 -P 0 -I zalsa_out/\"-d ${DEVICE:-hw:1,0} -p ${PERIOD:-64} -n ${NPERIODS:-3}\" -I zalsa_in/\"-d ${DEVICE:-hw:1,0} -c 6 -p ${PERIOD:-64} -n ${NPERIODS:-3}\""
+  #JACK_COMMAND="/usr/bin/jackd -t 2000 -R -P ${JACK_PRIORITY:-90} -r 48000 -p ${PERIOD:-64} -C /etc/jackdrc.session"
+  { jack_wait -w -t 10 && \
+    jack_load zalsa_out -i "-d ${DEVICE:-hw:1,0} -c 2 -p ${PERIOD:-64} -n ${NPERIODS:-3}" && \
+    jack_load zalsa_in -i "-d ${DEVICE:-hw:1,0} -c 2 -p ${PERIOD:-64} -n ${NPERIODS:-3}" ; \
+  } &
+fi
+echo $JACK_COMMAND > /home/pi/jack.log
 exec $JACK_COMMAND
+

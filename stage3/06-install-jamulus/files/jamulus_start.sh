@@ -6,6 +6,13 @@ if [ -f ~/.config/Jamulus/jamulus_start.conf ]; then
   source ~/.config/Jamulus/jamulus_start.conf
 fi
 
+# Audio interface is chosen in /etc/jackdrc.conf
+# source it here to determine the device to use
+if [ -f /etc/jackdrc.conf ]; then
+  source /etc/jackdrc.conf
+fi
+
+# A2JMIDID=1   # set in /etc/jackdrc if using a2jmidid, unset for jack arguments "-X alsarawmidi"
 # check if a MIDI device is connected
 MIDI_DEVICE_COUNT=`amidi -l | grep hw: | wc -l`
 if [[ "$MIDI_DEVICE_COUNT" == "0" ]]; then
@@ -30,16 +37,20 @@ else
     [[ -z "$JAMULUS_MIDI_SCRIPT" ]] && JAMULUS_MIDI_SCRIPT=/usr/local/bin/midi-jamulus-passthrough.py
     # Jack will be forced to capture MIDI devices and send to jack.  Save the current state so we can set it back after Jamulus exits.
     JACK_MIDI_ARG_SAVE=`sudo systemctl show-environment | grep JACK_MIDI_ARG | head -n1`
-    sudo systemctl set-environment JACK_MIDI_ARG="-X raw"
+    if [[ "$A2JMIDID" == "1" ]]; then
+      sudo systemctl unset-environment JACK_MIDI_ARG
+    else
+      if [[ "$ZITA" == "1" ]]; then
+        sudo systemctl set-environment JACK_MIDI_ARG="-X alsarawmidi"
+      else
+        sudo systemctl set-environment JACK_MIDI_ARG="-X raw"
+      fi
+    fi
+    #[[ -z "$A2JMIDID" ]] && sudo systemctl set-environment JACK_MIDI_ARG="-X alsarawmidi"
+    #[[ -z "$A2JMIDID" ]] && sudo systemctl set-environment JACK_MIDI_ARG="-X raw"
   else
     sudo systemctl unset-environment JACK_MIDI_ARG
   fi
-fi
-
-# Audio interface is chosen in /etc/jackdrc.conf
-# source it here to determine the device to use
-if [ -f /etc/jackdrc.conf ]; then
-  source /etc/jackdrc.conf
 fi
 
 echo ALSA Device: $DEVICE
@@ -99,6 +110,13 @@ fi
 # Start midi script as a background process
 # This script needs to wait for Jamulus to start, then connect its midi ports and start processing
 if [[ -f "$JAMULUS_MIDI_SCRIPT" ]]; then
+  if [[ "$A2JMIDID" == "1" ]]; then
+    echo "starting a2jmidid"
+    a2jmidid -e -u &
+    A2JMIDID_PID=$!
+    # if using a2jmidid, don't use jack argument for alsarawmidi
+    # sudo systemctl unset-environment JACK_MIDI_ARG  jack has already restarted
+  fi
   echo "starting Jamulus MIDI script $JAMULUS_MIDI_SCRIPT"
   $JAMULUS_MIDI_SCRIPT &
   MIDI_SCRIPT_PID=$!
@@ -125,6 +143,7 @@ fi
 
 [[ -n "$AJ_SNAPSHOT_PID" ]] && kill $AJ_SNAPSHOT_PID   # kill aj-snapshot background process
 [[ -n "$MIDI_SCRIPT_PID" ]] && kill $MIDI_SCRIPT_PID   # kill midiscript background process
+[[ -n "$A2JMIDID_PID" ]] &&  kill $A2JMIDID_PID        # kill a2jmidid background process 
 sudo systemctl unset-environment JACK_APP
 # restore systemd version of JACK_MIDI_ARG to previous state if set
 if [[ -n "$JACK_MIDI_ARG_SAVE" ]]; then
