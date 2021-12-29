@@ -66,7 +66,7 @@ Web Browser UI - use any laptop, tablet, desktop - even a smartphone.**
 
 ---
 ### Simple hardware platform
-Raspberry Pi + Audio Interface.  Can be attached to a board with velcro and pre-wired.
+Raspberry Pi + Audio Interface.  2GB Raspberry Pi is OK for jamming; 4GB model costs slightly more and allows flexibility for other purposes later.  Can be attached to a board with velcro and pre-wired for easy setup.
 
 **Suggested Bill of Materials**, prices in USD as of Nov 27, 2021:
 
@@ -77,9 +77,9 @@ Raspberry Pi + Audio Interface.  Can be attached to a board with velcro and pre-
 |11|Vilros Power Supply with Switch|https://vilros.com/products/vilros-usb-c-5v-3a-power-supply-with-switch-designed-for-pi-4|
 |8|SanDisk Ultra 16GB micro SD card|https://www.amazon.com/gp/product/9966573445|
 |45|Behringer UM2 USB Audio Interface|https://www.americanmusical.com/behringer-u-phoria-um2-usb-audio-interface/p/BEH-UM2|
-|31|Pyle PDMIC78 Microphone|https://www.amazon.com/gp/product/B005BSOVRY|
-|13|XLR Microphone Cable, 10 ft|https://www.amazon.com/gp/product/B00JOTSP3W|
-|23|Microphone Stand w/clip|https://www.amazon.com/gp/product/B00OZ9C9LK|
+|18|Pyle PDMIC78 Microphone|https://www.amazon.com/gp/product/B005BSOVRY|
+|12|XLR Microphone Cable, 15 ft|https://www.amazon.com/gp/product/B004UJHXUC|
+|22|Microphone Stand w/clip|https://www.amazon.com/gp/product/B00OZ9C9LK|
 |?|Over-ear Headphones|Use decent ones (likely $40 or more)|
 
 ---
